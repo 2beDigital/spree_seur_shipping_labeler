@@ -1,7 +1,7 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
-en:
+es:
   spree:
-    generate_new_label: "Generate New Label"
-    order_number: "Order Number"
+    generate_new_label: "Generar Nueva Etiqueta"
+    order_number: "Número de Pedido"

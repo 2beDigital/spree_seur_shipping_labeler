@@ -3,12 +3,10 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_seur_shipping_labeler'
   s.version     = '2.4.10'
-  s.summary     = 'TODO: Add gem summary here'
-  s.description = 'TODO: Add (optional) gem description here'
+  s.summary     = 'Spree Seur Extension for providing shipping and labels for Seur shipments'
+  s.description = 'Spree Seur Extension for providing shipping and labels for Seur shipments'
   s.required_ruby_version = '>= 1.9.3'
-
-  # s.author    = 'You'
-  # s.email     = 'you@example.com'
+  s.author    = 'Héctor Picazo'
   # s.homepage  = 'http://www.spreecommerce.com'
 
   #s.files       = `git ls-files`.split("\n")
