@@ -18,6 +18,10 @@ module SpreeSeurShippingLabeler
         run 'bundle exec rake railties:install:migrations FROM=spree_seur_shipping_labeler'
       end
 
+      def copy_initializer_file
+        template 'spree_seur.rb', "#{file_name}/config/initializers/spree_seur.rb"
+      end
+
       def run_migrations
         run_migrations = options[:auto_run_migrations] || ['', 'y', 'Y'].include?(ask 'Would you like to run the migrations now? [Y/n]')
         if run_migrations
