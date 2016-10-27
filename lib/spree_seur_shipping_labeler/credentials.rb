@@ -15,7 +15,6 @@ module SpreeSeurShippingLabeler
       @seur_ecb_code = options[:seur_ecb_code]
       @seur_franchise = options[:seur_franchise]
       @seur_id = options[:seur_id]
-      @mode = options[:mode]
     end
 
   end
