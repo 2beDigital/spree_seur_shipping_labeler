@@ -19,7 +19,7 @@ module SpreeSeurShippingLabeler
 
       @bundle = options[:bundle]
       @bundle_number = options[:bundle_number]
-      @bundle_message = bundles_vals(options)
+      @bundle_message = bundle_vals(options)
 
       @order = option[:order]
       @shipment = option[:shipment]
@@ -41,7 +41,7 @@ module SpreeSeurShippingLabeler
         message = build_messageECB
       end
 
-      response = client.call(operation, message: message)
+      client.call(operation, message: message)
       rescue Savon::HTTPError => error
       Logger.log error.http.code
       raise
@@ -58,12 +58,12 @@ module SpreeSeurShippingLabeler
 
     def build_message
       # Example http://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Builder
-      builder = Nokogiri::XML::Builder.new(:encoding => 'ISO-8859-1') do |xml|
+      Nokogiri::XML::Builder.new(:encoding => 'ISO-8859-1') do |xml|
           xml.root {
             xml.products {
               xml.widget {
-                xml.id_ "10"
-                xml.name "Awesome widget"
+                xml.id_ '10'
+                xml.name 'Awesome widget'
               }
             }
           }
