@@ -2,14 +2,13 @@ module SpreeSeurShippingLabeler
   class PickupLabel
     require 'savon'
 
-    include Helpers
+    include SeurHelper
 
     require 'savon'
 
-
     def initialize(credentials, options={})
       requires!(options,  :vat, :bundle)
-      @credentials = credentials
+      @credentials = credentials.new(options)
       @address = options[:address]
       @order = options[:order]
       @vat = options[:vat]
@@ -19,12 +18,10 @@ module SpreeSeurShippingLabeler
 
       @bundle = options[:bundle]
       @bundle_number = options[:bundle_number]
-      @bundle_message = bundle_vals(options)
 
       @order = option[:order]
       @shipment = option[:shipment]
     end
-
 
 
 
@@ -50,28 +47,40 @@ module SpreeSeurShippingLabeler
 
     def build_messageECB
       #TODO ECB
+      message = cdata_section(build_message)
     end
 
     def build_messagePDF
       #TODO ECB PDF
+      Nokogiri::XML::Builder.new do |xml|
+        message = cdata_section(build_message)
+      end
     end
 
     def build_message
       # Example http://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Builder
       Nokogiri::XML::Builder.new(:encoding => 'ISO-8859-1') do |xml|
           xml.root {
-            xml.products {
-              xml.widget {
-                xml.id_ '10'
-                xml.name 'Awesome widget'
+            xml.exp {
+              xml.bulto {
+
+              @bundle_number.times do |i|
+                bundles = bundle_vals(options,i+1)
+              end
+
+              bundles.each do |key, value|
+                xml.send(:key, value)
+              end
+
               }
             }
           }
       end
     end
 
-    def bundle_vals(options)
-      {
+    def bundle_vals(options={}, index_bundle)
+
+      bundle = {
           ci: options[:bundles],
           ccc: options[:ccc],
           servicio: options[:service],
@@ -80,7 +89,7 @@ module SpreeSeurShippingLabeler
           total_kilos: @bundle_number*@bundle.weight,
           peso_bulto:  @bundle.weight,
           observaciones: '',
-          referencia_expedicion: @shipment.number,
+          referencia_expedicion: @shipment.number + '-' + index_bundle,
           ref_bulto: @shipment.number,
           clave_portes: options[:clave_portes] || 'F', # F: Facturacion
           clave_reembolso: options[:clave_reembolso] || 'F', # F: Facturacion
@@ -100,6 +109,7 @@ module SpreeSeurShippingLabeler
           cliente_telefono: options[:cliente_telefono] || '',
           cliente_atencion: options[:cliente_atencion] || ''
       }
+
     end
 
   end

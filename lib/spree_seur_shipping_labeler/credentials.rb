@@ -1,9 +1,9 @@
-require 'spree_seur_shipping_labeler/helpers'
+require 'spree_seur_shipping_labeler/seur_helper'
 
 module SpreeSeurShippingLabeler
   class Credentials
 
-    include Helpers
+    include SeurHelper
     attr_reader :username, :password, :seur_printer, :seur_printer_model,
                 :seur_ecb_code, :seur_franchise, :seur_id
 
