@@ -3,7 +3,7 @@ module SpreeSeurShippingLabeler
     class InstallGenerator < Rails::Generators::Base
 
       class_option :auto_run_migrations, :type => :boolean, :default => false
-
+      source_root File.expand_path('../../templates', __FILE__)
       def add_javascripts
         append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require spree/frontend/spree_seur_shipping_labeler\n"
         append_file 'vendor/assets/javascripts/spree/backend/all.js', "//= require spree/backend/spree_seur_shipping_labeler\n"
@@ -19,7 +19,7 @@ module SpreeSeurShippingLabeler
       end
 
       def copy_initializer_file
-        template 'spree_seur.rb', "#{file_name}/config/initializers/spree_seur.rb"
+        copy_file 'spree_seur_shipping_labeler.rb', "app/config/initializers/spree_seur_shipping_labeler.rb"
       end
 
       def run_migrations

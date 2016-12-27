@@ -1,36 +1,19 @@
-# Use this initializer to configure Seur
+# Set principals configuration to SpreeSeurShippingLabeler
+seur_config = YAML.load_file("config/seur_api.yml")[Rails.env]
 
-SpreeSeurShippingLabeler.setup do |config|
-
-  # Seur Servicios
-  # '001': 'SEUR - 24',
-  # '003': 'SEUR - 10',
-  # '005': 'MISMO DIA',
-  # '007': 'COURIER',
-  # '009': 'SEUR 13:30',
-  # '013': 'SEUR - 72',
-  # '015': 'S-48',
-  # '017': 'MARITIMO',
-  # '019': 'NETEXPRESS',
-  # '077': 'CLASSIC',
-  # '083': 'SEUR 8:30',
-  config.bundle = {
-    ci:            ENV["seur_bundle_ci"],
-    nif:           ENV["seur_bundle_nif"],
-    ccc:           ENV["seur_bundle_ccc"],
-    service:       ENV["seur_bundle_service"],
-    product:       ENV["seur_bundle_product"]
-  }
-
-  config.in0.username = ENV["seur_username"],
-  config.in1.password = ENV["seur_password"],
-
-  # ImpresionIntegracionConECBWS
-  config.ConECBWS.in2.printer = ENV["seur_printer"]
-  config.ConECBWS.in3.printer_model = ENV["seur_printer_model"]
-  config.ConECBWS.in4.ecb_code = ENV["seur_ecb_code"]
-
-  config.franchise = ENV["seur_franchise"],
-  config.seurid    = ENV["seur_id"]
-
-end
+SpreeSeurShippingLabeler.config({
+  username:           seur_config["username"],
+  password:           seur_config["password"], 
+  seur_printer:       seur_config["seur_printer"], 
+  seur_printer_model: seur_config["seur_printer_model"],
+  seur_ecb_code:      seur_config["seur_ecb_code"],
+  seur_franchise:     seur_config["seur_franchise"],
+  seur_id:            seur_config["seur_id"],
+  bundle:             {
+                        ci:            seur_config["seur_bundle_ci"],
+                        nif:           seur_config["seur_bundle_nif"],
+                        ccc:           seur_config["seur_bundle_ccc"],
+                        service:       seur_config["seur_bundle_service"],
+                        product:       seur_config["seur_bundle_product"]
+                      }
+})
