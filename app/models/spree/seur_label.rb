@@ -1,7 +1,5 @@
 module Spree
   class SeurLabel < ActiveRecord::Base
-    after_create :generate_label!
-
     belongs_to :shipment
     
     has_one :order, through: :shipment
@@ -10,23 +8,31 @@ module Spree
 
     default_scope { order "created_at desc" }
 
+    validates :tracking_number, presence: true 
+    validates :print_label, presence: true
+
     def show_tracking_number
       self.tracking_number || 'No tracking number available'
     end
 
     def generate_label!
       # Generar etiqueta, tenemos que añadir los campos y realizar la request, obtener response y almacenar
-      # Para ello usaremos la libreria credentials.
-      generated_label      = labeler
-      self.print_label     = generated_label[:print_label]
-      self.tracking_number = generated_label[:tracking_number]
-      #self.request_xml     = generated_label[:request_xml]
-      #self.response_xml    = generated_label[:response_xml]
-      save!
+      generated_label, request_xml = request.generate_label!
+
+      if generated_label.body.has_key?(:impresion_integracion_pdf_con_ecbws_response)
+        self.print_label     = generated_label.body[:impresion_integracion_pdf_con_ecbws_response][:out][:pdf]
+        self.tracking_number = generated_label.body[:impresion_integracion_pdf_con_ecbws_response][:out][:ref_exped][:string]
+      else
+        self.print_label     = generated_label.body[:impresion_integracion_con_ecbws_response][:out][:traza]
+        self.tracking_number = generated_label.body[:impresion_integracion_con_ecbws_response][:out][:ref_exped][:string]
+      end
+      self.response_xml    = generated_label.doc.to_xml
+      self.request_xml     = Nokogiri::XML(request_xml.body)
     end
 
-    def labeler
-      SpreeSeurShippingLabeler::SeurShipment.label(self, self.order.ship_address) # le pasamos la etiqueta a crear
+    def request
+      Spree::ReturnRequest.new(self)
     end
+
   end
 end
