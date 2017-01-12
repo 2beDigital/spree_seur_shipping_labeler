@@ -3,5 +3,17 @@
 
 es:
   spree:
-    generate_new_label: "Generar Nueva Etiqueta"
-    order_number: "Número de Pedido"
+    generate_new_label: Generar Nueva Etiqueta
+    order_number: Número de Pedido
+    seur_shipping_labels: Etiquetas de envio para Seur
+    no_shipping_labels_for: "No hay etiquetas de envio para: %{number}. Estado del envio => %{state} "
+    ready: Listo
+    pending: Pendiente
+    shipped: Enviado
+    print: Imprimir
+    spree_shipping_box_id: "Tipo de caja de envio: "
+    bundle_number: "Numero de bultos: "
+    label: "Etiqueta - %{number}: Creada hace %{created}"
+    label_error: "Se ha producido un error: %{error}"
+    label_success: "La etiqueta %{number} se ha creado correctamente."
+    label_reload_success: "La etiqueta %{number} ya ha sido creada."

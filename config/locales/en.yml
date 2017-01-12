@@ -5,3 +5,15 @@ en:
   spree:
     generate_new_label: "Generate New Label"
     order_number: "Order Number"
+    seur_shipping_labels: "Seur Shipping Labels"
+    no_shipping_labels_for: "No shipping labels for: %{number}. Shipment state => %{state}  "
+    ready: Listo
+    pending: Pendiente
+    shipped: Enviado
+    print: Print
+    spree_shipping_box_id: "Shipping Box Type: "
+    bundle_number: "Number of bundles"
+    label: "Label - %{number}: %{created} ago"
+    label_error: "An error has occurred: %{error}"
+    label_success: "The label %{number} was created successfully."
+    label_reload_success: "The label %{number} has already been created."
