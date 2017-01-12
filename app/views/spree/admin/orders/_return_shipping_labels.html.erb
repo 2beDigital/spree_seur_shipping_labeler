@@ -1,23 +1,35 @@
-  <fieldset>
-    <legend>Seur Shipping Labels</legend>
-    <ul>
-      <% @order.shipments.each do |shipment| %>
-        <% if shipment.seur_labels %>
-          <li>
-          <%= link_to "#{shipment.seur_label.show_tracking_number} - #{distance_of_time_in_words_to_now(shipment.seur_label.created_at)} ago", admin_order_shipments_seur_label_path(@order, @shipments, label, format: :pdf) %>
-          </li>
-        <% end %>
+<% if flash[:error] %>
+  <div class="flash error"><%= flash[:error] %></div>
+<% end %>
+<% if flash[:success] %>
+  <div class="flash success"><%= flash[:success] %></div>
+<% end %>
+
+<fieldset>
+  <legend><%= Spree.t(:seur_shipping_labels) %></legend>
+  <% @order.shipments.each do |shipment| %>
+    <h6 class='shipment-number'><%= Spree.t(:shipment) + ' ' +  shipment.number %></h6>
+    <ul style='list-style: none'>
+      <% if shipment.seur_label %>
+        <li>
+        <%= Spree.t(:label, number: shipment.number, created: distance_of_time_in_words_to_now(shipment.seur_label.created_at)) %>
+        <%= link_to Spree.t(:print), admin_order_seur_label_path(@order, shipment, shipment.seur_label, format: :pdf), class: 'button fa fa-file-pdf-o' %>
+        </li>
+      <% else %>
+        <li><%= Spree.t(:no_shipping_labels_for, number: shipment.number, state: Spree.t(shipment.state) ) %></li>
       <% end %>
     </ul>
     <br/>
-    <% @order.shipments.each do |shipment| %>
-      <%= form_tag generate_seur_label_api_order_path(@order, :shipment_id => shipment.id), url:  generate_seur_label_api_order_path(@order), method: :post, id: 'seur-label-button' do |label_form| %>
+    <% if shipment.state != 'shipped' && shipment.state != 'pending' %>
+      <%= form_tag generate_seur_label_api_order_shipment_path(@order, shipment), url:  generate_seur_label_api_order_shipment_path(@order, shipment), method: :post, id: 'seur-label-button' do |label_form| %>
         <%= hidden_field_tag :token, spree_current_user.spree_api_key %>
-        <%= label_tag "Shipping Box" %>
-        <%= select_tag "spree_shipping_box_id", options_from_collection_for_select(Spree::Shipping::Box.all, :id, :description) %>
-        <div class="form-buttons filter-actions actions" data-hook="buttons">
-          <%= submit_tag Spree.t(:generate_new_label) %>
-        </div>
+        <%= label_tag Spree.t(:spree_shipping_box_id) %>
+        <%= select_tag :spree_shipping_box_id, options_from_collection_for_select(Spree::Shipping::Box.all, :id, :description) %>
+        <%= label_tag Spree.t(:bundle_number) %>
+        <%= select_tag  :bundle_number, options_for_select((1..20).step(1)) %>
+        <%= submit_tag Spree.t(:generate_new_label) %>
       <% end %>
+      <br/>
     <% end %>
-  </fieldset>
+  <% end %>
+</fieldset>
