@@ -1,7 +1,7 @@
 # Set principals configuration to SpreeSeurShippingLabeler
 seur_config = YAML.load_file("config/seur_api.yml")[Rails.env]
 
-SpreeSeurShippingLabeler.config({
+SpreeSeurShippingLabeler::SeurConection.config({
   username:           seur_config["username"],
   password:           seur_config["password"], 
   seur_printer:       seur_config["seur_printer"], 

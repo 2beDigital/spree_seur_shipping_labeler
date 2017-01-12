@@ -19,7 +19,7 @@ module SpreeSeurShippingLabeler
       end
 
       def copy_initializer_file
-        copy_file 'spree_seur_shipping_labeler.rb', "app/config/initializers/spree_seur_shipping_labeler.rb"
+        copy_file 'config/initializers/spree_seur_shipping_labeler.rb', "config/initializers/spree_seur_shipping_labeler.rb"
       end
 
       def run_migrations

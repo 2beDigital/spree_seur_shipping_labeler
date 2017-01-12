@@ -1,16 +1,14 @@
-module Spree
+module SpreeSeurShippingLabeler
   module SeurHelper
+
+    #Exceptions: SeurHelper::RateError
+    class RateError < StandardError; end
 
     private
     # String or :symbol to CamelCase
     def camelize(s)
       # s.to_s.split('_').map { |e| e.capitalize }.join('')
       s.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
-    end
-
-    # Helper method to validate required fields
-    def requires!(hash, *params)
-      params.each { |param| raise RateError, "Missing Required Parameter #{param}" if hash[param].nil? }
     end
 
     def underscorize(key) #:nodoc:
