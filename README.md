@@ -19,6 +19,47 @@ bundle
 bundle exec rails g spree_seur_shipping_labeler:install
 ```
 
+Add seur_api.yml to your config file like this (Parameters of each client contributed by seur):
+
+```ruby
+common: &test_environment_settings
+  username:             'username'
+  password:             'password'
+  seur_printer:         'printer' # this it's optional, if you don't specify printer the gem generate a pdf (it's better option)
+  seur_printer_model:   'printer_model' # optional
+  seur_ecb_code:        'code'
+  seur_franchise:       'franchise'
+  seur_id:              'id'
+  seur_bundle_ci:       'ci'
+  seur_bundle_nif:      'nif'
+  seur_bundle_ccc:      'ccc'
+  seur_bundle_service:  'service'
+  seur_bundle_product:  'product'
+
+production:
+  username:             'username'
+  password:             'password'
+  seur_printer:         'printer' # this it's optional, if you don't specify printer the gem generate a pdf (it's better option) 
+  seur_printer_model:   'printer_model' # optional 
+  seur_ecb_code:        'code'
+  seur_franchise:       'franchise'
+  seur_id:              'id'
+  seur_bundle_ci:       'ci'
+  seur_bundle_nif:      'nif'
+  seur_bundle_ccc:      'ccc'
+  seur_bundle_service:  'service'
+  seur_bundle_product:  'product'
+
+development:
+  <<: *test_environment_settings
+
+staging:
+  <<: *test_environment_settings
+
+test:
+<<: *test_environment_settings
+```
+
 Testing
 -------
 
