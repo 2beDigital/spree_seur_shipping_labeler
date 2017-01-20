@@ -24,6 +24,11 @@ module SpreeSeurShippingLabeler
       connection_params.except(:bundle)
     end
 
+    def self.expedition_params
+      params = connection_params
+      data = {username: params[:username], password: params[:password], seur_ccc: params[:bundle][:ccc]}
+    end
+
     private
 
     def self.requires!(hash, *params)
