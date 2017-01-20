@@ -17,3 +17,10 @@ en:
     label_error: "An error has occurred: %{error}"
     label_success: "The label %{number} was created successfully."
     label_reload_success: "The label %{number} has already been created."
+    your_order_status: 'Your order status: '
+    delivery_by: 'Delivery by: '
+    delivery_company: 'Go to SEUR '
+    tracking_number: 'Tracking number: '
+    consult_expeditons: 'Type of expeditions: '
+    show_tracking_status: 'Show tracking status'
+    show_tracking: 'Show tracking'

@@ -17,3 +17,10 @@ es:
     label_error: "Se ha producido un error: %{error}"
     label_success: "La etiqueta %{number} se ha creado correctamente."
     label_reload_success: "La etiqueta %{number} ya ha sido creada."
+    your_order_status: 'Estado de tu pedido: '
+    delivery_by: 'Enviado: '
+    delivery_company: 'Ir a SEUR '
+    tracking_number: 'Numero de seguimiento: '
+    consult_expeditons: 'Tipo de consulta: '
+    show_tracking_status: 'Mostrar estado del envio'
+    show_tracking: 'Mostrar seguimiento'
