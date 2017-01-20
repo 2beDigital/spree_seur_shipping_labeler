@@ -1,8 +1,11 @@
 module Spree
   module Api
     class ShippingLabelsController < Spree::Api::BaseController
-      before_filter :find_order
-
+      before_action :find_order
+      before_action :find_label, only: :generate_delivery_tracking
+      respond_to :js, :only => [:generate_delivery_tracking]
+      ssl_allowed :generate_delivery_tracking
+      
       def generate_seur_label
         @shipment = @order.shipments.find_by(number: params[:id])
         if @shipment.state != 'shipped'
@@ -19,10 +22,22 @@ module Spree
         redirect_to edit_admin_order_url(@order)
       end
 
-      private
-      def find_order
-        @order = Spree::Order.where(number: params[:order_id]).first
+      def generate_delivery_tracking
+        if @label && @label.shipment.state == 'shipped'
+          @delivery_status = @label.generate_expedition(params[:expedition])
+        end
       end
+
+      private
+
+        def find_order
+          @order = Spree::Order.where(number: params[:order_id]).first
+        end
+
+        def find_label
+          @shipment = @order.shipments.find_by(number: params[:id])
+          @label = @shipment.seur_label
+        end
     end
   end
 end
