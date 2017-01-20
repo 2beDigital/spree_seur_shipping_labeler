@@ -1,12 +1,12 @@
 <% if flash[:error] %>
   <div class="flash error"><%= flash[:error] %></div>
-<% end %>
-<% if flash[:success] %>
+<% elsif flash[:success] %>
   <div class="flash success"><%= flash[:success] %></div>
 <% end %>
 
-<fieldset>
+<fieldset class='no-border-bottom'>
   <legend><%= Spree.t(:seur_shipping_labels) %></legend>
+
   <% @order.shipments.each do |shipment| %>
     <h6 class='shipment-number'><%= Spree.t(:shipment) + ' ' +  shipment.number %></h6>
     <ul style='list-style: none'>
@@ -32,4 +32,21 @@
       <br/>
     <% end %>
   <% end %>
+</fieldset>
+
+<fieldset>
+  <legend><%= Spree.t(:show_tracking_status) %></legend>
+    <% @order.shipments.each do |shipment| %>
+      <% if shipment.seur_label && shipment.state == 'shipped'%>
+        <%= form_tag generate_delivery_tracking_api_order_shipment_path(@order, shipment), url: generate_delivery_tracking_api_order_shipment_path(@order, shipment), method: :post, id: 'show_tracking', :remote => true do |expedition_form|  %>
+          <%= hidden_field_tag :token, spree_current_user.spree_api_key %>
+          <%= label_tag Spree.t(:consult_expeditons) %>
+          <%= select_tag  :expedition, options_for_select([:consulta_expediciones_str, :consulta_listado_expediciones_str, :consulta_detalle_expediciones_str], :consulta_expediciones_str ) %>
+          <%= button_tag :class => 'button fa fa-truck', :type => :submit do %>
+            <%= Spree.t(:show_tracking) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <div class="show_tracking"></div>
 </fieldset>

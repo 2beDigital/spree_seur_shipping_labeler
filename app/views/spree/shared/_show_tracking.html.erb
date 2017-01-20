@@ -1,0 +1,11 @@
+<h6><%= Spree.t(:your_order_status) %></h6>
+<p id="delivery_by"><%= Spree.t(:delivery_by) %></p>
+<p class="date"><%= "Fecha de envio" %></p>
+<p><i class='fa fa-truck'></i>&nbsp;&nbsp;<%= Spree.t(:tracking_number) + 'H123456789'  %></p>
+<p>
+	<%= link_to 'http://www.seur.com/seguimiento-online.do', class: 'button' do %>
+		<%= Spree.t(:delivery_company) %>
+		<i class='fa fa-arrow-right'></i>
+	<% end %>
+</p>
+<p><%= @delivery_status[:error] %></p>
