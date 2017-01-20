@@ -1,0 +1,24 @@
+/*
+Placeholder manifest file.
+the installer will append this file to the app vendored assets here: 'vendor/assets/stylesheets/spree/frontend/all.css'
+*/
+#tracking_status {
+    border-bottom: 1px solid #777777;
+    padding-bottom: 10px;
+}
+#delivery_by {
+	color: grey;
+	font-style: italic;
+}
+.date {
+	font-size: 18px;
+	font-weight: bolder;
+}
+#tracking {
+	margin-bottom: 30px;
+	h6 {
+		font-weight: bolder;
+		font-size: 16px;
+		color: grey;
+	}
+}
