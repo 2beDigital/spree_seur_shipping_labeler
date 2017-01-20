@@ -24,3 +24,4 @@ es:
     consult_expeditons: 'Tipo de consulta: '
     show_tracking_status: 'Mostrar estado del envio'
     show_tracking: 'Mostrar seguimiento'
+    delivery_in_progress: 'Procesando envio...'

@@ -24,3 +24,4 @@ en:
     consult_expeditons: 'Type of expeditions: '
     show_tracking_status: 'Show tracking status'
     show_tracking: 'Show tracking'
+    delivery_in_progress: 'Delivery in progress...'
