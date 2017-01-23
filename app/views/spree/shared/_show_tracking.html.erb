@@ -1,11 +1,28 @@
-<h6><%= Spree.t(:your_order_status) %></h6>
-<p id="delivery_by"><%= Spree.t(:delivery_by) %></p>
-<p class="date"><%= "Fecha de envio" %></p>
-<p><i class='fa fa-truck'></i>&nbsp;&nbsp;<%= Spree.t(:tracking_number) + 'H123456789'  %></p>
-<p>
-	<%= link_to 'http://www.seur.com/seguimiento-online.do', class: 'button' do %>
-		<%= Spree.t(:delivery_company) %>
-		<i class='fa fa-arrow-right'></i>
-	<% end %>
-</p>
+<h6><i class='fa fa-truck'></i>&nbsp;&nbsp;<%= Spree.t(:your_order_status) %></h6>
+ <table class="index" id='delivery-status'>
+    <thead>
+      <tr data-hook="admin_trackers_index_headers">
+        <th class='hidden-xs'><%= Spree.t(:delivery_by) %></th>
+        <th><%= Spree.t(:date_of_shipping) %></th>
+        <th><%= Spree.t(:tracking_number) %></th>
+        <th><%= Spree.t(:delivery_company) %></th>
+        <th><%= Spree.t(:delivery_status) %></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr id="delivery-status" class="<%= cycle('odd', 'even')%>">
+			<td class="align-center hidden-xs"><%= Spree.t(:company_name) %></td>
+			<td class="align-center">29-02-2016</td>
+			<td class="align-center">'H123456789'</td>
+			<td class="align-center">
+				<%= link_to 'http://www.seur.com/seguimiento-online.do' do %>
+					SEUR
+					<i class='fa fa-arrow-right'></i>
+				<% end %>
+			</td>        
+			<td class="align-center">En Proceso...</td>        
+        </tr>
+    </tbody>
+</table>
+
 <p><%= @delivery_status[:error] %></p>

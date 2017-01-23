@@ -22,3 +22,55 @@ the installer will append this file to the app vendored assets here: 'vendor/ass
 		color: grey;
 	}
 }
+
+table#delivery-status{
+	border: 1px solid #d4d4d4;
+	text-align: center;
+	max-width: none;
+	width: 100%;
+	thead{
+	  tr{
+	    height: 40px;
+	    font-size: 13px;
+	    background-color: #d4d4d4;
+	    text-transform: uppercase;
+	    th{
+	      text-align: center;
+	    }
+	  }
+	}
+	tbody{
+	  tr{
+	    height: 30px;
+	    border-top: 1px solid #d4d4d4;
+	    font-size: 13px;
+	  }
+	  tr.even{
+	    background-color: white;
+	  }
+	  tr.odd{
+	    background-color: #d4d4d4er;
+	  }
+	}
+	td{
+	    padding: 10px;
+	}
+}
+
+@media only screen and (max-width: 767px){
+	table#delivery-status{
+		thead{
+		  tr{
+		    font-size: 9px;
+		  }
+		}
+		tbody{
+		  tr{
+		    font-size: 9px;
+		  }
+		}
+		td{
+		    padding: 3px;
+		}
+	}
+}
