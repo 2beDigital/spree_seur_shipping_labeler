@@ -1,6 +1,10 @@
-Spree::OrdersController.class_eval do
-	def show
-		@order = Spree::Order.find_by_number!(params[:id])
+Spree::Admin::OrdersController.class_eval do
+    def edit
+    	can_not_transition_without_customer_info
+
+        unless @order.completed?
+          	@order.refresh_shipment_rates
+		end
 		@delivery = []
 		@order.shipments.each do |shipment|
 			if shipment.seur_label
@@ -12,5 +16,6 @@ Spree::OrdersController.class_eval do
 				end
 			end
 		end	
+		render :action => :edit
 	end
 end

@@ -1,5 +1,5 @@
 <h6><i class='fa fa-truck'></i>&nbsp;&nbsp;<%= Spree.t(:your_order_status) %></h6>
- <table class="index" id='delivery-status'>
+<table class="index" id='delivery-status'>
     <thead>
       <tr>
         <th class='hidden-xs'><%= Spree.t(:delivery_by) %></th>
@@ -10,19 +10,12 @@
       </tr>
     </thead>
     <tbody>
-        <tr id="delivery-status" class="<%= cycle('odd', 'even')%>">
-			<td class="align-center hidden-xs"><%= Spree.t(:company_name) %></td>
-			<td class="align-center">29-02-2016</td>
-			<td class="align-center">'H123456789'</td>
-			<td class="align-center">
-				<%= link_to 'http://www.seur.com/seguimiento-online.do' do %>
-					SEUR
-					<i class='fa fa-arrow-right'></i>
-				<% end %>
-			</td>        
-			<td class="align-center">En Proceso...</td>        
-        </tr>
+        <% if @delivery.count > 1 %>
+            <% @delivery.each do |expedition| %>
+                <%= render partial: 'spree/shared/tracking_details', locals: { expedition: expedition} %>
+            <% end %>
+        <% else %>
+            <%= render partial: 'spree/shared/tracking_details', locals: { expedition: @delivery.first } %>
+        <% end %>
     </tbody>
 </table>
-
-<p><%= @delivery_status[:error] %></p>

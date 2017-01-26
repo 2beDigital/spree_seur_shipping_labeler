@@ -9,6 +9,9 @@ SpreeSeurShippingLabeler::SeurConection.config({
   seur_ecb_code:      seur_config["seur_ecb_code"],
   seur_franchise:     seur_config["seur_franchise"],
   seur_id:            seur_config["seur_id"],
+  username_exp:       seur_config["username_exp"],
+  password_exp:       seur_config["password_exp"],
+  ccc_exp:            seur_config["ccc_exp"],
   bundle:             {
                         ci:            seur_config["seur_bundle_ci"],
                         nif:           seur_config["seur_bundle_nif"],

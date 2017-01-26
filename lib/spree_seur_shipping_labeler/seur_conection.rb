@@ -6,7 +6,16 @@ module SpreeSeurShippingLabeler
     attr_accessor :params
 
     def self.config params
-      requires!(params, :username, :password, :seur_printer, :seur_printer_model, :seur_ecb_code, :seur_franchise, :seur_id)
+      requires!(params, :username,
+                        :password,
+                        :seur_printer, 
+                        :seur_printer_model, 
+                        :seur_ecb_code, 
+                        :seur_franchise, 
+                        :seur_id, 
+                        :username_exp, 
+                        :password_exp, 
+                        :ccc_exp)
       requires!(params[:bundle], :ci, :nif, :ccc, :service, :product)
       @params = params
     end
@@ -26,7 +35,7 @@ module SpreeSeurShippingLabeler
 
     def self.expedition_params
       params = connection_params
-      data = {username: params[:username], password: params[:password], seur_ccc: params[:bundle][:ccc]}
+      data = {username: params[:username_exp], password: params[:password_exp], ccc_exp: params[:ccc_exp]}
     end
 
     private

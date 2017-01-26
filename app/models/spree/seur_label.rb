@@ -31,26 +31,18 @@ module Spree
     end
 
     def generate_expedition(params)
-      response, request                             = expedition(params).process_request
-      type_exp = (params + '_response').to_sym
-      @delivery_status = {}
-      @delivery_status[:error]                      = response.body[type_exp][:out].gsub(/[\n<>\/]/,' ') || ''
-      # @delivery_status[:previo_num]               = response.body[type_exp][:out][:previo_num]
-      # @delivery_status[:expedicion_num]           = response.body[type_exp][:out][:expedicion_num]
-      # @delivery_status[:remite_ref]               = response.body[type_exp][:out][:remite_ref]
-      # @delivery_status[:fecha_captura]            = response.body[type_exp][:out][:fecha_captura]
-      # @delivery_status[:fecha_entrega]            = response.body[type_exp][:out][:f_real_entrega]
-      # @delivery_status[:situacion_cod]            = response.body[type_exp][:out][:situacion_cod]
-      # @delivery_status[:descripcion_para_cliente] = response.body[type_exp][:out][:descripcion_para_cliente]
-      @delivery_status
+      response  = expedition(params).process_request
+      operation = (params + '_response').to_sym
+      Nokogiri::Slop(response.body[operation][:out].downcase)
     end
 
     def request
       Spree::ReturnRequest.new(self)
     end
 
-    def expedition(params)
-      SpreeSeurShippingLabeler::ConsultExpedition.new(self.tracking_number, params)
+    def expedition(operation)
+      params = { number_reference: self.tracking_number, operation: operation, date: self.updated_at }
+      SpreeSeurShippingLabeler::ConsultExpedition.new(params)
     end
 
   end

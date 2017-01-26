@@ -1,0 +1,12 @@
+<tr id="delivery-status" class="<%= cycle('odd', 'even')%>">
+    <td class="align-center hidden-xs"><%= Spree.t(:company_name) %></td>
+    <td class="align-center"><%= expedition.fecha_captura.text.split(' ')[0] %></td>
+    <td class="align-center"><%= expedition.remite_ref.text.upcase %></td>
+    <td class="align-center">
+    	<%= link_to 'http://www.seur.com/seguimiento-online.do' do %>
+    		SEUR
+    		<i class='fa fa-arrow-right'></i>
+    	<% end %>
+    </td>        
+    <td class="align-center"><%= expedition.descripcion_para_cliente.text.capitalize %></td>        
+</tr>

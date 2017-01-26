@@ -4,10 +4,12 @@ module SpreeSeurShippingLabeler
 
     attr_reader :params
 
-    def initialize(number_reference, expedition)
+    def initialize(params)
       @params = SpreeSeurShippingLabeler::SeurConection.expedition_params
-      @params[:num_exp] = number_reference
-      @params[:expedition] = expedition.to_sym
+      @params[:num_ref] = (params[:operation] == 'consulta_listado_expediciones_str') ? '' : params[:number_reference]
+      @params[:expedition] = params[:operation]
+      @params[:date_from] = params[:date] - 15.days
+      @params[:date_to] = params[:date] 
     end
 
     # Sends post request to Seur web service and return the response
@@ -21,9 +23,8 @@ module SpreeSeurShippingLabeler
       # client.operations  => [:consulta_listado_expediciones_str, :consulta_detalle_expediciones_str, :consulta_expediciones_str, ... ]
 
       message = build_message_expedition
-      request  = client.build_request(params[:expedition], message: message)
-      response = client.call(params[:expedition], message: message)
-      result = response, request
+      #request  = client.build_request(params[:expedition], message: message)
+      response = client.call(params[:expedition].to_sym, message: message)
       rescue Savon::HTTPError => error
       Rails.logger.error error.http.code
       raise     
@@ -36,9 +37,9 @@ module SpreeSeurShippingLabeler
         in1:  params[:num_exp] || '',
         in2:  params[:num_tracking] || '',
         in3:  params[:num_ref] || '',
-        in4:  params[:seur_ccc],
-        in5:  params[:date_from] || '',
-        in6:  params[:date_to] || '',
+        in4:  params[:ccc_exp],
+        in5:  params[:date_from].strftime("%d-%m-%Y"),
+        in6:  params[:date_to].strftime("%d-%m-%Y"),
         in7:  params[:situation] || '',
         in8:  params[:name_seller_customer] || '',
         in9:  params[:state_from_to] || '',
@@ -46,8 +47,9 @@ module SpreeSeurShippingLabeler
         in11: params[:change_service] || '0', # 0 => Unselected, 1 => Selected
         in12: params[:username],
         in13: params[:password],
-        in14: params[:search_type] || 'S' # S => Public, N => Private
+        in14: params[:search_type] || 'N' # S => Public, N => Private
       }
     end
   end
 end
+

@@ -27,3 +27,7 @@ es:
     delivery_in_progress: 'Procesando envio...'
     delivery_status: Estado del envío
     date_of_shipping: Fecha de envio
+    expedition_error: "No se han procesado expediciones para el envio %{number}"
+    consulta_expediciones_str: Consultar envío
+    consulta_listado_expediciones_str: Consultar multiples envíos
+    no_expediton_found: No es posible mostrar detalles del envío.

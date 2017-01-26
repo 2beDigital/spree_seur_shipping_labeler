@@ -27,3 +27,7 @@ en:
     delivery_in_progress: 'Delivery in progress...'
     delivery_status: Delivery status
     date_of_shipping: Date of shipping
+    expedition_error: "No expeditions have been processed for shipment %{number}"
+    consulta_expediciones_str: Consult shipping
+    consulta_listado_expediciones_str: Consult multiple shippings
+    no_expediton_found: Can not show shipping details.
