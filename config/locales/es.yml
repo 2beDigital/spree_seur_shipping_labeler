@@ -31,3 +31,6 @@ es:
     consulta_expediciones_str: Consultar envío
     consulta_listado_expediciones_str: Consultar multiples envíos
     no_expediton_found: No es posible mostrar detalles del envío.
+    show_shippings: "Mostrar envíos"
+    date_from: "Fecha desde:"
+    date_to: "Fecha hasta:"

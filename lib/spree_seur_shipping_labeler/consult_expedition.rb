@@ -4,15 +4,11 @@ module SpreeSeurShippingLabeler
 
     attr_reader :params
 
-    def initialize(params)
+    def initialize(options)
       @params = SpreeSeurShippingLabeler::SeurConection.expedition_params
-      @params[:num_ref] = (params[:operation] == 'consulta_listado_expediciones_str') ? '' : params[:number_reference]
-      @params[:expedition] = params[:operation]
-      @params[:date_from] = params[:date] - 15.days
-      @params[:date_to] = params[:date] 
+      @params = @params.merge(options)
     end
 
-    # Sends post request to Seur web service and return the response
     def process_request
       client = Savon.client(wsdl: "https://ws.seur.com/webseur/services/WSConsultaExpediciones?wsdl", 
                             namespaces: { "xmlns:con" => "http://consultaExpediciones.servicios.webseur" }, 
@@ -20,11 +16,8 @@ module SpreeSeurShippingLabeler
                             env_namespace: :soapenv, 
                             pretty_print_xml: true)
       
-      # client.operations  => [:consulta_listado_expediciones_str, :consulta_detalle_expediciones_str, :consulta_expediciones_str, ... ]
-
       message = build_message_expedition
-      #request  = client.build_request(params[:expedition], message: message)
-      response = client.call(params[:expedition].to_sym, message: message)
+      response = client.call(:consulta_listado_expediciones_str, message: message)
       rescue Savon::HTTPError => error
       Rails.logger.error error.http.code
       raise     
@@ -38,8 +31,8 @@ module SpreeSeurShippingLabeler
         in2:  params[:num_tracking] || '',
         in3:  params[:num_ref] || '',
         in4:  params[:ccc_exp],
-        in5:  params[:date_from].strftime("%d-%m-%Y"),
-        in6:  params[:date_to].strftime("%d-%m-%Y"),
+        in5:  params[:date_from],
+        in6:  params[:date_to],
         in7:  params[:situation] || '',
         in8:  params[:name_seller_customer] || '',
         in9:  params[:state_from_to] || '',

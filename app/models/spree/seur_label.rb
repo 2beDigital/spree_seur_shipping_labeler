@@ -1,13 +1,9 @@
 module Spree
   class SeurLabel < ActiveRecord::Base
-    belongs_to :shipment
-    
+    belongs_to :shipment    
     has_one :order, through: :shipment
-
     belongs_to :shipping_box, class_name: 'Spree::Shipping::Box', foreign_key: 'spree_shipping_box_id'
-
     default_scope { order "created_at desc" }
-
     validates :tracking_number, presence: true 
     validates :print_label, presence: true
 
@@ -30,19 +26,23 @@ module Spree
       self.request_xml     = Nokogiri::XML(request_xml.body)
     end
 
-    def generate_expedition(params)
-      response  = expedition(params).process_request
-      operation = (params + '_response').to_sym
-      Nokogiri::Slop(response.body[operation][:out].downcase)
+    def generate_expedition
+      response  = expedition.process_request
+      Nokogiri::Slop(response.body[:consulta_listado_expediciones_str_response][:out].downcase)
     end
 
     def request
       Spree::ReturnRequest.new(self)
     end
 
-    def expedition(operation)
-      params = { number_reference: self.tracking_number, operation: operation, date: self.updated_at }
-      SpreeSeurShippingLabeler::ConsultExpedition.new(params)
+    def expedition      
+      SpreeSeurShippingLabeler::ConsultExpedition.new(expeditions_params)
+    end
+
+    private
+
+    def expeditions_params
+      dates = { date_to: self.created_at.strftime("%d-%m-%Y"), date_from: (self.created_at - 15.days).strftime("%d-%m-%Y") }
     end
 
   end
