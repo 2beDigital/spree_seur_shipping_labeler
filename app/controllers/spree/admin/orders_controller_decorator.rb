@@ -6,7 +6,6 @@ Spree::Admin::OrdersController.class_eval do
         unless @order.completed?
           	@order.refresh_shipment_rates
 		end
-		@delivery = return_expeditions if @order.shipments.first.shipping_method.name =~ /^Seur/ 
-		render :action => :edit
+		@delivery = return_expeditions if @order.shipments.first.shipping_method.present? && @order.shipments.first.shipping_method.name =~ /^Seur/ 
 	end
 end
