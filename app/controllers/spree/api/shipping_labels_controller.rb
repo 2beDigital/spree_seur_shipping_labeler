@@ -11,7 +11,7 @@ module Spree
           if @label.save
             flash[:success] = Spree.t(:label_success, number: @label.tracking_number)
           else
-            flash[:error] = Spree.t(:label_error, error: @label.response_xml)        
+            flash[:error] = Spree.t(:label_error)        
           end
         else
           flash[:success] = Spree.t(:label_reload_success, number: @label.tracking_number)

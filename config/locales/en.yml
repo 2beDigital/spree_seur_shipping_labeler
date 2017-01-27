@@ -14,7 +14,7 @@ en:
     spree_shipping_box_id: "Shipping Box Type: "
     bundle_number: "Number of bundles"
     label: "Label - %{number}: %{created} ago"
-    label_error: "An error has occurred: %{error}"
+    label_error: "An error has occurred when create the label."
     label_success: "The label %{number} was created successfully."
     label_reload_success: "The label %{number} has already been created."
     your_order_status: 'Your order status: '
@@ -34,3 +34,5 @@ en:
     show_shippings: 'Show shippings'
     date_from: "Date from:"
     date_to: "Date to:"
+    shipping_status_for: "Show shippings for %{shipping_method}"
+    got_to_show_shipping_status: 'Go to show shippings'

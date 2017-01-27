@@ -14,7 +14,7 @@ es:
     spree_shipping_box_id: "Tipo de caja de envio: "
     bundle_number: "Numero de bultos: "
     label: "Etiqueta - %{number}: Creada hace %{created}"
-    label_error: "Se ha producido un error: %{error}"
+    label_error: "Se ha producido un error al crear la etiqueta."
     label_success: "La etiqueta %{number} se ha creado correctamente."
     label_reload_success: "La etiqueta %{number} ya ha sido creada."
     your_order_status: 'Estado de tu pedido: '
@@ -23,6 +23,7 @@ es:
     tracking_number: 'Numero de seguimiento: '
     consult_expeditons: 'Tipo de consulta: '
     show_tracking_status: 'Mostrar estado del envio'
+    show_shipping_status: 'Mostrar listado de envios'
     show_tracking: 'Mostrar seguimiento'
     delivery_in_progress: 'Procesando envio...'
     delivery_status: Estado del envío
@@ -34,3 +35,5 @@ es:
     show_shippings: "Mostrar envíos"
     date_from: "Fecha desde:"
     date_to: "Fecha hasta:"
+    shipping_status_for: "Listado de envios para %{shipping_method}"
+    got_to_show_shipping_status: 'Ir a listado de envios'
