@@ -5,9 +5,14 @@ module Spree
       def show
         order = Spree::Order.where(number: params[:order_id]).first
         shipment = order.shipments.find_by(number: params[:id])
-        label = pdf_text(shipment.seur_label.print_label)
+
+        if  SpreeSeurShippingLabeler::SeurConection.credentials[:seur_printer].blank?
+          label = pdf_text(shipment.seur_label.print_label)        
+          send_data(label, type: 'application/pdf', disposition: 'inline')
+        else
+          send_data(shipment.seur_label.print_label, filename: 'seur_label_' + shipment.number + '.txt')
+        end
         
-        send_data(label, type: 'application/pdf', disposition: 'inline')
       end
 
       private
