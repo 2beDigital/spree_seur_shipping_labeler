@@ -8,7 +8,7 @@ Spree::Core::Engine.routes.draw do
           post :show_tracking_shippings, to: 'shipping_methods#show_tracking_shippings'
         end
         member do
-          get :show, to: 'shipping_methods#show'
+          post :show, to: 'shipping_methods#show'
         end
     end
   end
