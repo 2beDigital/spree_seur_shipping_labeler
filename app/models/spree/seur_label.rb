@@ -42,7 +42,7 @@ module Spree
     private
 
     def expeditions_params
-      dates = { date_from: self.created_at.strftime("%d-%m-%Y"), date_to: (self.created_at + 15.days).strftime("%d-%m-%Y") }
+      dates = { date_from: (self.created_at - 7.days).strftime("%d-%m-%Y"), date_to: (self.created_at + 7.days).strftime("%d-%m-%Y") }
     end
 
   end
