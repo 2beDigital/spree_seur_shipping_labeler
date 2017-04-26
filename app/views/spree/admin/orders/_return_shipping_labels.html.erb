@@ -4,42 +4,44 @@
   <div class="flash success"><%= flash[:success] %></div>
 <% end %>
 
-<fieldset class='no-border-bottom'>
-  <legend><%= Spree.t(:seur_shipping_labels) %></legend>
+<% if @order.shipments.first.shipping_method.admin_name.present? && @order.shipments.first.shipping_method.admin_name.downcase.include?('seur') %>
+  <fieldset class='no-border-bottom'>
+    <legend><%= Spree.t(:seur_shipping_labels) %></legend>
 
-  <% @order.shipments.each do |shipment| %>
-    <h6 class='shipment-number'><%= Spree.t(:shipment) + ' ' +  shipment.number %></h6>
-    <ul style='list-style: none'>
-      <% if shipment.seur_label %>
-        <li>
-        <%= Spree.t(:label, number: shipment.number, created: distance_of_time_in_words_to_now(shipment.seur_label.created_at)) %>
-        <%= link_to Spree.t(:print), admin_order_seur_label_path(@order, shipment, shipment.seur_label, format: :pdf), class: 'button fa fa-file-pdf-o' %>
-        </li>
-      <% else %>
-        <li><%= Spree.t(:no_shipping_labels_for, number: shipment.number, state: Spree.t(shipment.state) ) %></li>
-      <% end %>
-    </ul>
-    <br/>
-    <% if shipment.state != 'shipped' && shipment.state != 'pending' %>
-      <%= form_tag generate_seur_label_api_order_shipment_path(@order, shipment), url:  generate_seur_label_api_order_shipment_path(@order, shipment), method: :post, id: 'seur-label-button' do |label_form| %>
-        <%= hidden_field_tag :token, spree_current_user.spree_api_key %>
-        <%= label_tag Spree.t(:spree_shipping_box_id) %>
-        <%= select_tag :spree_shipping_box_id, options_from_collection_for_select(Spree::Shipping::Box.all, :id, :description) %>
-        <%= label_tag Spree.t(:bundle_number) %>
-        <%= select_tag  :bundle_number, options_for_select((1..20).step(1)) %>
-        <%= submit_tag Spree.t(:generate_new_label) %>
-      <% end %>
+    <% @order.shipments.each do |shipment| %>
+      <h6 class='shipment-number'><%= Spree.t(:shipment) + ' ' +  shipment.number %></h6>
+      <ul style='list-style: none'>
+        <% if shipment.seur_label %>
+          <li>
+          <%= Spree.t(:label, number: shipment.number, created: distance_of_time_in_words_to_now(shipment.seur_label.created_at)) %>
+          <%= link_to Spree.t(:print), admin_order_seur_label_path(@order, shipment, shipment.seur_label, format: :pdf), class: 'button fa fa-file-pdf-o' %>
+          </li>
+        <% else %>
+          <li><%= Spree.t(:no_shipping_labels_for, number: shipment.number, state: Spree.t(shipment.state) ) %></li>
+        <% end %>
+      </ul>
       <br/>
+      <% if shipment.state != 'shipped' && shipment.state != 'pending' %>
+        <%= form_tag generate_seur_label_api_order_shipment_path(@order, shipment), url:  generate_seur_label_api_order_shipment_path(@order, shipment), method: :post, id: 'seur-label-button' do |label_form| %>
+          <%= hidden_field_tag :token, spree_current_user.spree_api_key %>
+          <%= label_tag Spree.t(:spree_shipping_box_id) %>
+          <%= select_tag :spree_shipping_box_id, options_from_collection_for_select(Spree::Shipping::Box.all, :id, :description) %>
+          <%= label_tag Spree.t(:bundle_number) %>
+          <%= select_tag  :bundle_number, options_for_select((1..20).step(1)) %>
+          <%= submit_tag Spree.t(:generate_new_label) %>
+        <% end %>
+        <br/>
+      <% end %>
     <% end %>
-  <% end %>
-</fieldset>
-
-<% if !@delivery.blank? %> 
-  <fieldset>
-    <legend><%= Spree.t(:show_tracking_status) %></legend>
-    <%= render partial: ("spree/shared/show_tracking") %>
-    <%= link_to  Spree.t(:got_to_show_shipping_status), admin_shipping_method_path(@order.shipments.first.shipping_method), class: 'button fa fa-truck'%>
   </fieldset>
+
+  <% if !@delivery.blank? %> 
+    <fieldset>
+      <legend><%= Spree.t(:show_tracking_status) %></legend>
+      <%= render partial: ("spree/shared/show_tracking") %>
+      <%= link_to  Spree.t(:got_to_show_shipping_status), admin_shipping_method_path(@order.shipments.first.shipping_method), class: 'button fa fa-truck'%>
+    </fieldset>
+  <% end %>
 <% end %>
 
                
