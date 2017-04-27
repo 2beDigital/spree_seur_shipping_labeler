@@ -47,7 +47,7 @@ module SpreeSeurShippingLabeler
         in2:  credentials[:seur_printer],
         in3:  credentials[:seur_printer_model],
         in4:  credentials[:seur_ecb_code],
-        in5!: tmp.create_cdata(build_message.doc.to_xml).to_s, # Exclamation (in5!:) needed for escape cdata with Gyoku
+        in5!: tmp.create_cdata(build_message.doc.to_xml).to_s.gsub('UTF-8','ISO-8859-1'), # Exclamation (in5!:) needed for escape cdata with Gyoku
         in6:  'fichero_' + Time.now.to_i.to_s + '.xml',
         in7:  bundle[:nif],
         in8:  credentials[:seur_franchise],
@@ -61,7 +61,7 @@ module SpreeSeurShippingLabeler
       message = {
         in0:  credentials[:username],
         in1:  credentials[:password],
-        in2!: tmp.create_cdata(build_message.doc.to_xml).to_s, # Exclamation (in2!:) needed for escape cdata with Gyoku
+        in2!: tmp.create_cdata(build_message.doc.to_xml).to_s.gsub('UTF-8','ISO-8859-1'), # Exclamation (in2!:) needed for escape cdata with Gyoku
         in3:  'fichero_' + Time.now.to_i.to_s + '.xml',
         in4:  bundle[:nif] ,
         in5:  credentials[:seur_franchise] ,
@@ -73,7 +73,7 @@ module SpreeSeurShippingLabeler
     def build_message
       # Example http://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Builder
       bundles = {}
-      Nokogiri::XML::Builder.new(:encoding => 'ISO-8859-1') do |xml|
+      Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
           xml.root {
             xml.exp {
               package.bundle_number.times do |i|
