@@ -14,7 +14,12 @@
         <% if shipment.seur_label %>
           <li>
           <%= Spree.t(:label, number: shipment.number, created: distance_of_time_in_words_to_now(shipment.seur_label.created_at)) %>
+          <% if SpreeSeurShippingLabeler::SeurConection.credentials[:seur_printer].blank? %>
           <%= link_to Spree.t(:print), admin_order_seur_label_path(@order, shipment, shipment.seur_label, format: :pdf), class: 'button fa fa-file-pdf-o' %>
+          <% else %>
+            <%= button_tag Spree.t(:print), class: 'button fa fa-file-pdf-o', onclick: "printZpl(document.getElementById('zplcode').value)" %>
+            <textarea id="zplcode" class='hidden'><%= shipment.seur_label.print_label %></textarea>
+          <% end %>
           </li>
         <% else %>
           <li><%= Spree.t(:no_shipping_labels_for, number: shipment.number, state: Spree.t(shipment.state) ) %></li>
