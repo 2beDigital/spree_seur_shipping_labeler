@@ -1,21 +1,26 @@
-<h6><%= Spree.t(:your_order_status) %></h6>
-<table class="index" id='delivery-status'>
-    <thead>
-      <tr>
-        <th class='hidden-xs'><%= Spree.t(:delivery_by) %></th>
-        <th><%= Spree.t(:date_of_shipping) %></th>
-        <th><%= Spree.t(:tracking_number) %></th>
-        <th><%= Spree.t(:delivery_company) %></th>
-        <th><%= Spree.t(:delivery_status) %></th>
-      </tr>
-    </thead>
-    <tbody>
-        <% if @delivery.count > 1 %>
-            <% @delivery.each do |expedition| %>
-                <%= render partial: 'spree/shared/tracking_details', locals: { expedition: expedition} %>
+<% if @delivery.present? %>
+    <h6><%= Spree.t(:your_order_status) %></h6>
+    <table class="index" id='delivery-status'>
+        <thead>
+          <tr>
+            <th class='hidden-xs'><%= Spree.t(:delivery_by) %></th>
+            <th><%= Spree.t(:date_of_shipping) %></th>
+            <th><%= Spree.t(:tracking_number) %></th>
+            <th><%= Spree.t(:delivery_company) %></th>
+            <th><%= Spree.t(:delivery_status) %></th>
+          </tr>
+        </thead>
+        <tbody>
+            <% if @delivery.count > 1 %>
+                <% @delivery.each do |expedition| %>
+                    <%= render partial: 'spree/shared/tracking_details', locals: { expedition: expedition} %>
+                <% end %>
+            <% else %>
+                <%= render partial: 'spree/shared/tracking_details', locals: { expedition: @delivery.first } %>
             <% end %>
-        <% else %>
-            <%= render partial: 'spree/shared/tracking_details', locals: { expedition: @delivery.first } %>
-        <% end %>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+<% else %>
+    </hr>
+    <h3><%= Spree.t(:not_found_expeditions) %></h3>
+<% end %>

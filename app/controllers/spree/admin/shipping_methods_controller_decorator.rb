@@ -25,14 +25,18 @@ Spree::Admin::ShippingMethodsController.class_eval do
 
 	def set_deliveries
 		expeditions = []
-		if @delivery.expediciones.expedicion.count > 1
-			@delivery.expediciones.expedicion.each do |expedition|
-				expeditions << expedition
+		if @delivery.respond_to?('expediciones')
+			if @delivery.expediciones.expedicion.count > 1
+				@delivery.expediciones.expedicion.each do |expedition|
+					expeditions << expedition
+				end
+			else
+				expeditions << @delivery.expediciones.expedicion
 			end
+			@delivery = expeditions
 		else
-			expeditions << @delivery.expediciones.expedicion
+			@delivery = []
 		end
-		@delivery = expeditions
 	end
 
 	def expeditons_params

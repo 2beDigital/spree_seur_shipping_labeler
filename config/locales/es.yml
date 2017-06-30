@@ -37,3 +37,4 @@ es:
     date_to: "Fecha hasta:"
     shipping_status_for: "Listado de envios para %{shipping_method}"
     got_to_show_shipping_status: 'Ir a listado de envios'
+    not_found_expeditions: No se encontraron expediciones para este periodo.
