@@ -4,7 +4,7 @@
   <div class="flash success"><%= flash[:success] %></div>
 <% end %>
 
-<% if @order.shipments.first.shipping_method.admin_name.present? && @order.shipments.first.shipping_method.admin_name.downcase.include?('seur') %>
+<% if @order.shipments.present? && @order.shipments.first.shipping_method.admin_name.present? && @order.shipments.first.shipping_method.admin_name.downcase.include?('seur') %>
   <fieldset class='no-border-bottom'>
     <legend><%= Spree.t(:seur_shipping_labels) %></legend>
 
