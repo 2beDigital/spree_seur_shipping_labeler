@@ -33,8 +33,6 @@ common: &test_environment_settings
   seur_bundle_ci:       'ci'
   seur_bundle_nif:      'nif'
   seur_bundle_ccc:      'ccc'
-  seur_bundle_service:  'service'
-  seur_bundle_product:  'product'
 
 production:
   username:             'username'
@@ -47,8 +45,6 @@ production:
   seur_bundle_ci:       'ci'
   seur_bundle_nif:      'nif'
   seur_bundle_ccc:      'ccc'
-  seur_bundle_service:  'service'
-  seur_bundle_product:  'product'
 
 development:
   <<: *test_environment_settings

@@ -15,8 +15,6 @@ SpreeSeurShippingLabeler::SeurConection.config({
   bundle:             {
                         ci:            seur_config["seur_bundle_ci"],
                         nif:           seur_config["seur_bundle_nif"],
-                        ccc:           seur_config["seur_bundle_ccc"],
-                        service:       seur_config["seur_bundle_service"],
-                        product:       seur_config["seur_bundle_product"]
+                        ccc:           seur_config["seur_bundle_ccc"]
                       }
 })
