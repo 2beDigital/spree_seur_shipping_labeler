@@ -61,5 +61,9 @@ module Spree
     def default_weight
       1.0 * bundle_number # kg
     end
+
+    def seur_type
+      seur_label.shipping_seur_type
+    end
   end
 end

@@ -37,3 +37,4 @@ en:
     shipping_status_for: "Show shippings for %{shipping_method}"
     got_to_show_shipping_status: 'Go to show shippings'
     not_found_expeditions: No expeditions were found for this period.
+    spree_shipping_seur_types_id: Shipping type

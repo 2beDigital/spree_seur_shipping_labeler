@@ -6,7 +6,7 @@ module Spree
       
       def generate_seur_label        
         if @shipment.state != 'shipped'
-          @label = @shipment.build_seur_label(spree_shipping_box_id: params[:spree_shipping_box_id], bundle_number: params[:bundle_number])
+          @label = @shipment.build_seur_label(spree_shipping_seur_types_id: params[:spree_shipping_seur_types_id], spree_shipping_box_id: params[:spree_shipping_box_id], bundle_number: params[:bundle_number])
           @label.generate_label!  
           if @label.save
             flash[:success] = Spree.t(:label_success, number: @label.tracking_number)

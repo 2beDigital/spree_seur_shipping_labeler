@@ -29,7 +29,6 @@ module SpreeSeurShippingLabeler
         operation = :impresion_integracion_con_ecbws
         message = build_messageECB
       end
-
       request  = client.build_request(operation, message: Gyoku.xml(message))
       response = client.call(operation, message: Gyoku.xml(message))
       result = response, request
@@ -94,8 +93,8 @@ module SpreeSeurShippingLabeler
           ci: bundle[:ci],
           nif: bundle[:nif],
           ccc: bundle[:ccc],
-          servicio: bundle[:service],
-          producto: bundle[:product] || 2,
+          servicio: package.seur_type.service,
+          producto: package.seur_type.product,
           total_bultos: package.bundle_number,
           total_kilos: package.total_weight, # number of bundle * weight of bundle
           pesoBulto:  package.bundle_weight,

@@ -29,10 +29,12 @@
       <% if shipment.state != 'shipped' && shipment.state != 'pending' %>
         <%= form_tag generate_seur_label_api_order_shipment_path(@order, shipment), url:  generate_seur_label_api_order_shipment_path(@order, shipment), method: :post, id: 'seur-label-button' do |label_form| %>
           <%= hidden_field_tag :token, spree_current_user.spree_api_key %>
+          <%= label_tag Spree.t(:spree_shipping_seur_types_id) %>
+          <%= select_tag :spree_shipping_seur_types_id , options_from_collection_for_select(Spree::Shipping::SeurType.all, :id, :name), class: 'select2 fullwidth' %><br/>
           <%= label_tag Spree.t(:spree_shipping_box_id) %>
-          <%= select_tag :spree_shipping_box_id, options_from_collection_for_select(Spree::Shipping::Box.all, :id, :description) %>
+          <%= select_tag :spree_shipping_box_id, options_from_collection_for_select(Spree::Shipping::Box.all, :id, :description), class: 'select2 fullwidth'%><br/>
           <%= label_tag Spree.t(:bundle_number) %>
-          <%= select_tag  :bundle_number, options_for_select((1..20).step(1)) %>
+          <%= select_tag  :bundle_number, options_for_select((1..20).step(1)), class: 'select2 fullwidth' %><br/><br/>
           <%= submit_tag Spree.t(:generate_new_label) %>
         <% end %>
         <br/>

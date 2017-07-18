@@ -16,7 +16,7 @@ module SpreeSeurShippingLabeler
                         :username_exp, 
                         :password_exp, 
                         :ccc_exp)
-      requires!(params[:bundle], :ci, :nif, :ccc, :service, :product)
+      requires!(params[:bundle], :ci, :nif, :ccc)
       @params = params
     end
 

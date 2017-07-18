@@ -3,6 +3,7 @@ module Spree
     belongs_to :shipment    
     has_one :order, through: :shipment
     belongs_to :shipping_box, class_name: 'Spree::Shipping::Box', foreign_key: 'spree_shipping_box_id'
+    belongs_to :shipping_seur_type, class_name: 'Spree::Shipping::SeurType', foreign_key: 'spree_shipping_seur_types_id'
     default_scope { order "created_at desc" }
     validates :tracking_number, presence: true 
     validates :print_label, presence: true
