@@ -131,7 +131,7 @@ module SpreeSeurShippingLabeler
           telefono_consignatario: customer_address[:phone_number]  || '',
           cod_centro: '',
           codigo_pais_origen: seller_address[:country_iso],
-          id_mercancia: ''
+          id_mercancia: package.order.id
       }
     end
   end

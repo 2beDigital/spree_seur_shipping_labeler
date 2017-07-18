@@ -4,11 +4,11 @@ namespace :shipping_seur_types do
 	  	puts "Create shipping seur types"
 
 		seur_shippings = [['Nacional Estandar',         '31', '2' ],
-		                  ['Nacional Seur24',           '31', '1' ],
-		                  ['Internacional Classic',     '70', '77'],
-		                  ['Internacional Net Express', '70', '19'],
-		                  ['Internacional Courier',     '70', '79'],
-		                  ['Internacional Cargo',       '70', '7' ]]
+		                  ['Nacional Seur24',           '1' , '2' ],
+		                  ['Internacional Classic',     '77', '70'],
+		                  ['Internacional Net Express', '19', '70'],
+		                  ['Internacional Courier',     '79', '70'],
+		                  ['Internacional Cargo',       '7' , '70']]
 
 		seur_shippings.each do |name, service, product|
 		  type = Spree::Shipping::SeurType.where(
