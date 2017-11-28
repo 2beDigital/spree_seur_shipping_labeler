@@ -39,3 +39,4 @@ es:
     got_to_show_shipping_status: 'Ir a listado de envios'
     not_found_expeditions: No se encontraron expediciones para este periodo.
     spree_shipping_seur_types_id: Tipo de envio
+    wait_process: Este proceso puede tardar varios minutos...
