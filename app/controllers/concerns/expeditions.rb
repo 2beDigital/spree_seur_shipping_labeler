@@ -1,6 +1,6 @@
 module Expeditions
   extend ActiveSupport::Concern
-
+  include Spree::Admin::OrdersHelper
   def return_expeditions
     delivery = []
     @order.shipments.each do |shipment|
@@ -16,8 +16,5 @@ module Expeditions
       end
     end 
     return delivery
-  end
-  def has_seur_shipments?
-    @order.shipments.present? && @order.shipments.first.shipping_method && @order.shipments.first.shipping_method.admin_name.present? && @order.shipments.first.shipping_method.admin_name.downcase.include?('seur') 
   end
 end
